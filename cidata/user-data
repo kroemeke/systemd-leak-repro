@@ -102,3 +102,4 @@ runcmd:
   - mv /lib/systemd/systemd /lib/systemd/systemd.REAL
   - mv /lib/systemd/systemd.VALGRIND /lib/systemd/systemd
   - systemctl enable ham.service
+  - systemctl daemon-reexec
