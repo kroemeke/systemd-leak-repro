@@ -22,6 +22,7 @@ write_files:
       mkdir -p /valgrind
       exec /usr/bin/valgrind \
           -v \
+          --log-file=/dev/ttyS0 \
           --enable-debuginfod=no \
           --tool=memcheck \
           --track-fds=no \
