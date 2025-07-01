@@ -17,8 +17,8 @@ write_files:
   - content: |
       #!/usr/bin/bash -ex
       echo "Hello, fred"
-      exec /lib/systemd/systemd.REAL --log-level=debug
-    path: /lib/systemd/systemd.WRAPPED
+      exec MALLOC_TRACE="/dev/ttyS0" /lib/systemd/systemd.REAL --log-level=debug
+    path: /lib/systemd/systemd.VALGRIND
     permissions: '0755'
   - content: |
       [Unit]
@@ -30,7 +30,7 @@ write_files:
       ExecStartPre=/usr/bin/true
       ExecStart=/usr/bin/false
       Restart=on-failure
-      RestartSec=0.01
+      RestartSec=1
       RuntimeDirectory=ham
       RemainAfterExit=no
       LoadCredential=cfg.yaml:/root/systemd-bugs/mount/cfg.yaml
@@ -101,7 +101,7 @@ write_files:
 
 runcmd:
   - mv /lib/systemd/systemd /lib/systemd/systemd.REAL
-  - mv /lib/systemd/systemd.WRAPPED /lib/systemd/systemd
+  - mv /lib/systemd/systemd.VALGRIND /lib/systemd/systemd
   - systemctl enable ham.service
   - cat /lib/systemd/systemd
   - systemctl daemon-reexec
