@@ -25,9 +25,6 @@ prepare:
 clean:
 	rm cidata.iso
 	rm -rf $(BUILDDIR)
-
-.PHONY: distclean
-distclean: clean
 	rm $(DEBIAN_IMG_FILE)
 
 .PHONY: download
